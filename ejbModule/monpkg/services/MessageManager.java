@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 @Stateless
 public class MessageManager {
 
-    @Resource
+	@Resource(name = "myDS")
     private DataSource ds;
 
     public void addMessage(String message) throws SQLException {
@@ -18,6 +18,15 @@ public class MessageManager {
         Statement st = c.createStatement();
         st.execute("CREATE TABLE IF NOT EXISTS MSG(TEXTE VARCHAR(30))");
         st.execute("INSERT INTO MSG(TEXTE) VALUES('" + message + "')");
+    }
+    
+    public String check() throws SQLException {
+    	Connection c = ds.getConnection();
+    	Statement st=c.createStatement();
+    	
+    	return ""+st.executeQuery("select * from test");
+    	
+    	
     }
 
 }

@@ -19,7 +19,8 @@ public class TestMessageManager {
     @Test
     public void testAddMessage() throws Exception {
         messageManager.addMessage("Hello");
-        messageManager.addMessage("Salut");
+//        messageManager.addMessage("Salut");
+    	  messageManager.check();
     }
 
 }
