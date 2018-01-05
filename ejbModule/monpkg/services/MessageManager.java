@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 public class MessageManager {
 
 	@Resource(name = "myDS")
+	//@Resource
     private DataSource ds;
 
     public void addMessage(String message) throws SQLException {
