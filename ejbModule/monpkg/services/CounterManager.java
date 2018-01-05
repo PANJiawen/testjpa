@@ -13,10 +13,13 @@ import monpkg.entities.Counter;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
+//@TransactionManagement(TransactionManagementType.BEAN)
 public class CounterManager {
 
     @PersistenceContext(unitName = "myMySQLBase")
     EntityManager em;
+    @EJB
+    CounterRemover cr;
 
     public Counter getCounter(String name) {
         return em.find(Counter.class, name);
@@ -29,12 +32,26 @@ public class CounterManager {
         }
     }
 
-    public void createCounter(String name, Integer value) {
+    public void createCounter(String name, Integer value) throws BadCounter {
         removeCounter(name);
         Counter c = new Counter();
         c.setName(name);
         c.setValue(value);
         em.persist(c);
+        if (value < 0) {
+            throw new BadCounter("pas moins de zéro");
+        }
+        
+    }
+    public void createCounter2(String name, Integer value) throws BadCounter {
+        cr.removeCounter(name);
+        Counter c = new Counter();
+        c.setName(name);
+        c.setValue(value);
+        em.persist(c);
+        if (value < 0) {
+            throw new BadCounter("pas moins de zéro");
+        }
     }
 
 }
