@@ -15,12 +15,16 @@ import monpkg.services.MessageManager;
 import org.junit.Assert;
 import org.junit.Test;
 
+import devoir.services.Services;
+
 public class TestMessageManager {
 
 //    @EJB
 //    MessageManager messageManager;
     @EJB
     CounterManager cm;
+    @EJB
+    Services sr;
 
 
     public TestMessageManager() throws Exception {
@@ -52,6 +56,7 @@ public class TestMessageManager {
         //cm.createCounter("kevin", 100);
    
         Assert.assertTrue(10 == c.getValue());
+        sr.createActivity("Bonjour",1);
     }
     
     
